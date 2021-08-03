@@ -1,0 +1,5 @@
+name: Guest Book
+description: This module for the site, performs the functions of a guest book, where people can go and leave reviews, comments, impressions and wishes.
+package: custom
+type: module
+core_version_requirement: ^8.8.0 || ^9
