@@ -1,0 +1,10 @@
+guest_book-style:
+  version: 1.x
+  css:
+    theme:
+      css/guest_book.css: {}
+
+guest_book:
+  dependencies:
+    - core/jquery
+    - core/ajax

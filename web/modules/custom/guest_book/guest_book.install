@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Install, custom guest book module.
+ */
+
+/**
+ * {@inheritDoc}
+ */
+function guest_book_schema() {
+  $schema['guest_book'] = [
+    'description' => 'Database guest_book',
+    'fields' => [
+      'id' => [
+        'description' => 'ID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'name' => [
+        'description' => 'name',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'email' => [
+        'description' => 'email',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'telephone' => [
+        'description' => 'telephone',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'message' => [
+        'description' => 'message',
+        'type' => 'text',
+      ],
+      'avatar' => [
+        'description' => 'avatar',
+        'length' => 64,
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'image' => [
+        'description' => 'Adding a Picture To The Review',
+        'type' => 'int',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => 0,
+      ],
+      'timestamp' => [
+        'description' => 'Timestamp',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  return $schema;
+}
