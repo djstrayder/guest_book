@@ -3,3 +3,7 @@ description: This module for the site, performs the functions of a guest book, w
 package: custom
 type: module
 core_version_requirement: ^8.8.0 || ^9
+
+libraries:
+  - guest_book/guest_book-style
+  - guest_book/guest_book

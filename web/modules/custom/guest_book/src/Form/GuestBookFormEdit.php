@@ -11,28 +11,87 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\file\Entity\File;
 
 /**
- * Class GuestBookForm.
- *
- * Provides a guest_book form.
+ * Implements an Edit Form.
  */
-class GuestBookForm extends FormBase {
+Class GuestBookFormEdit extends FormBase {
 
   /**
-   * For ID.
+   * ID of the item to edit.
+   *
+   * @var \Drupal\guest_book\Form\GuestBookFormEdit
+   */
+
+  protected $id;
+
+  /**
+   * Class FormMain.
+   *
+   * {@inheritdoc}.
    */
   public function getFormId() {
-    return 'guest_book';
+    return 'FormEdit';
   }
 
   /**
-   * My form for guest book.
+   * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public $cid;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuestion() {
+    return t('Do you want to edit %cid?', ['%cid' => $this->cid]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCancelUrl() {
+    return new Url('guest.book');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfirmText() {
+    return t('Edit it!');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCancelText() {
+    return t('Cancel');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, $cid = NULL) {
+    $this->id = $cid;
+    $id = \Drupal::routeMatch()->getParameter('id');
+    $query = \Drupal::database();
+    $data = $query->select('guest_book', 'b')
+      ->fields('b', [
+        'id',
+        'name',
+        'email',
+        'telephone',
+        'message',
+        'avatar',
+        'image',
+        'timestamp',
+      ])
+      ->orderBy('b.id', $id, '=')
+      ->execute()->fetchAll();
+    $load_img = json_decode(json_encode($data), TRUE);
     $form['name'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
       '#placeholder' => $this->t('minimum length 2, maximum length 100'),
       '#title' => $this->t('Name:'),
+      '#default_value' => $data[0]->name,
       '#ajax' => [
         'callback' => '::nameValidateAjax',
         'event' => 'change',
@@ -47,6 +106,7 @@ class GuestBookForm extends FormBase {
       '#required' => TRUE,
       '#placeholder' => $this->t('guestbook@gmail.com'),
       '#title' => $this->t('Email:'),
+      '#default_value' => $data[0]->email,
       '#ajax' => [
         'callback' => '::emailValidateAjax',
         'event' => 'change',
@@ -62,6 +122,7 @@ class GuestBookForm extends FormBase {
       '#required' => TRUE,
       '#placeholder' => $this->t('like this +380997548675'),
       '#title' => $this->t('Telephone Number:'),
+      '#default_value' => $data[0]->telephone,
       '#ajax' => [
         'callback' => '::telephoneValidateAjax',
         'event' => 'change',
@@ -76,12 +137,14 @@ class GuestBookForm extends FormBase {
       '#required' => TRUE,
       '#placeholder' => $this->t('Message:'),
       '#title' => $this->t('Message:'),
+      '#default_value' => $data[0]->message,
     ];
     $form['avatar'] = [
       '#type' => 'managed_file',
       '#description' => $this->t('Only png, jpeg, jpg and < 2MB'),
       '#title' => $this->t('Your Avatar:'),
       '#upload_location' => 'public://images/',
+      '#default_value' => [$load_img[0]['avatar']],
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpeg jpg'],
         'file_validate_size' => ['2097152'],
@@ -92,6 +155,7 @@ class GuestBookForm extends FormBase {
       '#description' => $this->t('Only png, jpeg, jpg and < 5MB'),
       '#title' => $this->t('Adding a Picture To The Review:'),
       '#upload_location' => 'public://images/',
+      '#default_value' => [$load_img[0]['image']],
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpeg jpg'],
         'file_validate_size' => ['5242880'],
@@ -143,8 +207,8 @@ class GuestBookForm extends FormBase {
     if (strlen($form_state->getValue('name')) < 2) {
       $response->addCommand(
         new HtmlCommand(
-        '.name_result_message',
-        '<div style="color:red; padding-bottom:10px">The your name is too short.</div>'
+          '.name_result_message',
+          '<div style="color:red; padding-bottom:10px">The your name is too short.</div>'
         )
       );
     }
@@ -158,7 +222,7 @@ class GuestBookForm extends FormBase {
     }
     else {
       $response->addCommand(new HtmlCommand(
-        '.name_result_message',
+          '.name_result_message',
           '<div style="color:#05ff05; padding-bottom:15px;">██</div> ',
         )
       );
@@ -174,15 +238,15 @@ class GuestBookForm extends FormBase {
     $response = new AjaxResponse();
     if ((!filter_var($emailVl, FILTER_VALIDATE_EMAIL))) {
       $response->addCommand(new HtmlCommand(
-        '.email_result_message',
-        '<div style="color:red; padding-bottom:10px;">The your email not correct.</div>'
+          '.email_result_message',
+          '<div style="color:red; padding-bottom:10px;">The your email not correct.</div>'
         )
       );
     }
     else {
       $response->addCommand(new HtmlCommand(
-        '.email_result_message',
-        '<div style="color:#05ff05; padding-bottom:15px;">██</div> ',
+          '.email_result_message',
+          '<div style="color:#05ff05; padding-bottom:15px;">██</div> ',
         )
       );
     }
@@ -202,8 +266,8 @@ class GuestBookForm extends FormBase {
     }
     else {
       $response->addCommand(new HtmlCommand(
-        '.telephone_result_message',
-        '<div style="color:#05ff05; padding-bottom:15px;">██</div> ',
+          '.telephone_result_message',
+          '<div style="color:#05ff05; padding-bottom:15px;">██</div> ',
         )
       );
     }
@@ -265,9 +329,10 @@ class GuestBookForm extends FormBase {
       $imagefile->setPermanent();
       $imagefile->save();
     }
-    $query = \Drupal::database()->insert('guest_book');
+    $query = \Drupal::database()->update('guest_book');
     $query
       ->fields($data)
+      ->condition('id', $this->id)
       ->execute();
     $this->messenger()->addStatus($this->t('Successfully'));
     $form_state->setRedirect('guest.book');

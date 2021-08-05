@@ -1,0 +1,56 @@
+{{ attach_library('guest_book/guest_book-style') }}
+<div class="guestbook-content">
+  <h4>Your feedback, comments, impressions and wishes.</h4>
+  {% for row in rows %}
+    <div class="guestbook_user">
+      <div class="guestbook_header_content">
+        <div class="guestbook_name_image">
+        <div class="guestbook_name">
+        {{ row.name }}
+      </div>
+        <div class="guestbook_user_data">
+        <div class="guestbook_avatar">
+          {% if row.avatar.data is null %}
+          <img src="/modules/custom/guest_book/files/default_user.png" alt="default_user_image" width="100" height="100">
+          {% else %}
+            {{ row.avatar }}
+          {% endif %}
+        </div>
+      </div>
+      </div>
+        <div class="guestbook_contacts">
+        <span>Contacts:</span>
+        <div class="guestbook_email">
+          <a href="{{ row.email }}" class="guestbook_user_email">{{ row.email }}</a>
+        </div>
+        <div class="guestbook_telephone">
+          <a href="tel:{{ row.telephone }}" class="guestbook_user_telephone">{{ row.telephone }}</a>
+        </div>
+      </div>
+      </div>
+      <div class="guestbook_feedback">
+        <div class="guestbook_feedback_message">
+          <div>Message:</div>
+          {{ row.message }}
+        </div>
+        <div class="guestbook_feedback_image">
+          {% if row.uri %}
+            <div class="feedback_image_width">
+            <a href="{{ row.uri }}" target="_blank" >{{ row.image }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="guestbook_timestamp">
+        {{ row.timestamp |date('M-d-Y H:i:s') }}
+      </div>
+      {% if user.hasPermission('administer nodes') %}
+        <div class="guestbook_buttons">
+          <a href="/guest_book/guestbook-edit/{{ row.id }}" data-dialog-type="modal">{{ row.edit }}</a>
+          <a href="/guest_book/guestbook-delete/{{ row.id }}" data-dialog-type="modal">{{ row.delete }}</a>
+        </div>
+      {% endif %}
+    </div>
+
+  {% endfor %}
+</div>

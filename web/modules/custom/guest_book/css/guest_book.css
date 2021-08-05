@@ -1,0 +1,65 @@
+.js-quickedit-page-title {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  color: #7e4b10;
+}
+.guestbook-content h4 {
+  text-align: center;
+  text-transform: uppercase;
+  padding: 20px 0;
+}
+.guestbook_header_content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+.guestbook_user {
+  border: 1px solid #3e3f3a;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.guestbook_name_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3e3f3a;;
+  padding: 10px;
+  flex-direction: column;
+}
+.guestbook_name {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.guestbook_contacts {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.guestbook_contacts a {
+  text-decoration: none;
+  color: #3e3f3a;
+}
+.guestbook_feedback_message {
+  border: 1px solid #3e3f3a;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+.guestbook_feedback_message div {
+  text-transform: uppercase;
+}
+.feedback_image_width {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.guestbook_timestamp {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 10px;
+}

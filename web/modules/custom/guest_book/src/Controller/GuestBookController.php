@@ -39,8 +39,7 @@ class GuestBookController extends ControllerBase {
     $this->build();
     $query = \Drupal::database();
     $result = $query->select('guest_book', 'b')
-      ->fields('d', [
-        'id',
+      ->fields('b', [
         'name',
         'email',
         'telephone',
@@ -48,6 +47,7 @@ class GuestBookController extends ControllerBase {
         'avatar',
         'image',
         'timestamp',
+        'id',
       ])
       ->orderBy('timestamp', 'DESK')
       ->execute()->fetchAll();
@@ -87,12 +87,12 @@ class GuestBookController extends ControllerBase {
         $image_variables = [
           '#theme' => 'image',
           '#uri' => $uri,
-          'alt' => 'Feedback image',
+          '#alt' => 'Feedback image',
           '#title' => 'Feedback image',
+          '#width' => 200,
         ];
       }
       $data[] = [
-        'id' => $row->id,
         'name' => $row->name,
         'email' => $row->email,
         'telephone' => $row->telephone,
@@ -104,6 +104,7 @@ class GuestBookController extends ControllerBase {
           'data' => $image_variables,
         ],
         'timestamp' => $row->timestamp,
+        'id' => $row->id,
         'edit' => t('Edit'),
         'delete' => t('Delete'),
         'uri' => isset($uri) ? $uri : '',
@@ -112,6 +113,8 @@ class GuestBookController extends ControllerBase {
     return [
       'form' => $this->build(),
       'guests' => [
+        '#theme' => 'guestbook',
+        '#rows' => $data,
       ],
     ];
   }

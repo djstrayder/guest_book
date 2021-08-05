@@ -2,6 +2,22 @@ guest.book:
   path: '/guest_book'
   defaults:
     _title: 'GUEST BOOK'
-    _controller: '\Drupal\guest_book\Controller\GuestBookController::build'
+    _controller: '\Drupal\guest_book\Controller\GuestBookController::dataGuestBook'
   requirements:
     _permission: 'access content'
+
+guest.book.edit:
+  path: '/guest_book/guestbook-edit/{cid}'
+  defaults:
+    _title: 'Edit'
+    _form: '\Drupal\guest_book\Form\GuestBookFormEdit'
+  requirements:
+    _permission: 'administer site configuration'
+
+guest.book.delete:
+  path: '/guest_book/guestbook-delete/{cid}'
+  defaults:
+    _title: 'Edit'
+    _form: '\Drupal\guest_book\Form\GuestBookFormDelete'
+  requirements:
+    _permission: 'administer site configuration'
