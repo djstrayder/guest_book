@@ -4,39 +4,16 @@ namespace Drupal\guest_book\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\file\Entity\File;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for guest_book routes.
+ * Returns responses for guestbook.
  */
-class GuestBookController extends ControllerBase {
-  /**
-   * {@inheritdoc}
-   */
-  protected $formBuild;
-
-  /**
-   * Creating.
-   */
-  public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->formBuild = $container->get('form_builder');
-    return $instance;
-  }
-
-  /**
-   * Builds the response.
-   */
-  public function build() {
-    $guestBookForm = \Drupal::formBuilder()->getForm('Drupal\guest_book\Form\GuestBookForm');
-    return $guestBookForm;
-  }
+class GuestBookControllerAdmin extends ControllerBase {
 
   /**
    * Data from the table.
    */
-  public function dataGuestBook() {
-    $this->build();
+  public function dataGuestBookAdmin() {
     $query = \Drupal::database();
     $result = $query->select('guest_book', 'b')
       ->fields('b', [
@@ -111,9 +88,8 @@ class GuestBookController extends ControllerBase {
       ];
     }
     return [
-      'form' => $this->build(),
       'guests' => [
-        '#theme' => 'guestbook',
+        '#theme' => 'guestbook_admin',
         '#rows' => $data,
       ],
     ];

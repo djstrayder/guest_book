@@ -1,0 +1,6 @@
+admin.guestbook:
+  title: 'Guestbook'
+  description: 'Guestbook'
+  parent: system.admin_structure
+  route_name: guest.book.admin
+  weight: 100

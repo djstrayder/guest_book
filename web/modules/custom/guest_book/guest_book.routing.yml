@@ -21,3 +21,27 @@ guest.book.delete:
     _form: '\Drupal\guest_book\Form\GuestBookFormDelete'
   requirements:
     _permission: 'administer site configuration'
+
+guest.book.admin:
+  path: '/admin/structure/guestbook'
+  defaults:
+    _title: 'Admin Guestbook'
+    _controller: '\Drupal\guest_book\Controller\GuestBookControllerAdmin::dataGuestBookAdmin'
+  requirements:
+    _permission: 'administer site configuration'
+
+guest.book.admin.edit:
+  path: '/guest_book/guestbook-edit/{cid}'
+  defaults:
+    _title: 'Edit'
+    _form: '\Drupal\guest_book\Form\GuestBookAdminEdit'
+  requirements:
+    _permission: 'administer site configuration'
+
+guest.book.admin.delete:
+  path: '/guest_book/guestbook-delete/{cid}'
+  defaults:
+    _title: 'Edit'
+    _form: '\Drupal\guest_book\Form\GuestBookAdminDelete'
+  requirements:
+    _permission: 'administer site configuration'

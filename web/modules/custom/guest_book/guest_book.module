@@ -11,11 +11,11 @@ function guest_book_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'guestbook',
     ],
-    'admin_guestbook' => [
+    'guestbook_admin' => [
       'variables' => [
         'rows' => [],
       ],
-      'template' => 'admin_guestbook',
+      'template' => 'guestbook_admin',
     ],
   ];
 }

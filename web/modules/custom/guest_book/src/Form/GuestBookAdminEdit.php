@@ -13,12 +13,12 @@ use Drupal\file\Entity\File;
 /**
  * Implements an Edit Form.
  */
-Class GuestBookFormEdit extends FormBase {
+Class GuestBookAdminEdit extends FormBase {
 
   /**
    * ID of the item to edit.
    *
-   * @var \Drupal\guest_book\Form\GuestBookFormEdit
+   * @var \Drupal\guest_book\Form\GuestBookAdminEdit
    */
 
   protected $id;
@@ -48,7 +48,7 @@ Class GuestBookFormEdit extends FormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('guest.book');
+    return new Url('guest.book.admin');
   }
 
   /**
@@ -73,7 +73,6 @@ Class GuestBookFormEdit extends FormBase {
     $id = \Drupal::routeMatch()->getParameter('id');
     $query = \Drupal::database();
     $data = $query->select('guest_book', 'b')
-      ->condition('b.id', $cid, '=')
       ->fields('b', [
         'id',
         'name',
@@ -84,6 +83,7 @@ Class GuestBookFormEdit extends FormBase {
         'image',
         'timestamp',
       ])
+      ->orderBy('b.id', $id, '=')
       ->execute()->fetchAll();
     $load_img = json_decode(json_encode($data), TRUE);
     $form['name'] = [
@@ -291,7 +291,7 @@ Class GuestBookFormEdit extends FormBase {
     $message = \Drupal::service('renderer')->render($message);
     $response->addCommand(new HtmlCommand('#form-system-messages', $message));
     if (!$form_state->hasAnyerrors()) {
-      $url = Url::fromRoute('guest.book');
+      $url = Url::fromRoute('guest.book.admin');
       $command = new RedirectCommand($url->toString());
       $response->addCommand($command);
     }
@@ -335,8 +335,8 @@ Class GuestBookFormEdit extends FormBase {
       ->condition('id', $this->id)
       ->execute();
     $this->messenger()->addStatus($this->t('Successfully'));
-    $form_state->setRedirect('guest.book');
-
+    $form_state->setRedirect('guest.book.admin');
   }
 
 }
+

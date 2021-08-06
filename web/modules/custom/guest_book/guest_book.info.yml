@@ -7,3 +7,4 @@ core_version_requirement: ^8.8.0 || ^9
 libraries:
   - guest_book/guest_book-style
   - guest_book/guest_book
+  - guest_book/guestbook_admin
