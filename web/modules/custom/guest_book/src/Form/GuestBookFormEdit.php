@@ -13,7 +13,7 @@ use Drupal\file\Entity\File;
 /**
  * Implements an Edit Form.
  */
-Class GuestBookFormEdit extends FormBase {
+class GuestBookFormEdit extends FormBase {
 
   /**
    * ID of the item to edit.
@@ -164,7 +164,7 @@ Class GuestBookFormEdit extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Send'),
+      '#value' => $this->t('Edit'),
       '#ajax' => [
         'callback' => '::submitAjax',
         'event' => 'click',

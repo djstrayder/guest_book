@@ -7,7 +7,9 @@ use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for guest_book routes.
+ * Class DisplayTableController.
+ *
+ * @package Drupal\guest_book\Controller;
  */
 class GuestBookController extends ControllerBase {
   /**
@@ -25,7 +27,7 @@ class GuestBookController extends ControllerBase {
   }
 
   /**
-   * Builds the response.
+   * Builds form for guest book.
    */
   public function build() {
     $guestBookForm = \Drupal::formBuilder()->getForm('Drupal\guest_book\Form\GuestBookForm');
@@ -36,6 +38,7 @@ class GuestBookController extends ControllerBase {
    * Data from the table.
    */
   public function dataGuestBook() {
+    // Get data from database.
     $this->build();
     $query = \Drupal::database();
     $result = $query->select('guest_book', 'b')
@@ -92,6 +95,7 @@ class GuestBookController extends ControllerBase {
           '#width' => 200,
         ];
       }
+      // Get data.
       $data[] = [
         'name' => $row->name,
         'email' => $row->email,
@@ -110,9 +114,10 @@ class GuestBookController extends ControllerBase {
         'uri' => isset($uri) ? $uri : '',
       ];
     }
+    // Render page.
     return [
       'form' => $this->build(),
-      'guests' => [
+      'posts' => [
         '#theme' => 'guestbook',
         '#rows' => $data,
       ],

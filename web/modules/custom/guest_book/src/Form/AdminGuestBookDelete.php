@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  *
  * @package Drupal\guest_form\Form
  */
-class GuestBookAdminDelete extends ConfirmFormBase {
+class AdminGuestBookDelete extends ConfirmFormBase {
 
   /**
    * {@inheritdoc}
@@ -29,14 +29,14 @@ class GuestBookAdminDelete extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Do you want to delete %cid?', ['%cid' => $this->cid]);
+    return t('Delete this entry %cid?', ['%cid' => $this->cid]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('guest.book.admin');
+    return new Url('admin.guestbook');
   }
 
   /**
@@ -56,7 +56,7 @@ class GuestBookAdminDelete extends ConfirmFormBase {
       ->condition('id', $this->id)
       ->execute();
     $this->messenger()->addStatus($this->t("Succesfully deleted"));
-    $form_state->setRedirect('guest.book.admin');
+    $form_state->setRedirect('admin.guestbook');
   }
 
 }

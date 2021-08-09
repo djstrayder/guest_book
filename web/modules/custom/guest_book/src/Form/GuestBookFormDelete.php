@@ -29,7 +29,7 @@ class GuestBookFormDelete extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Do you want to delete %cid?', ['%cid' => $this->cid]);
+    return t('Delete this entry %cid?', ['%cid' => $this->cid]);
   }
 
   /**

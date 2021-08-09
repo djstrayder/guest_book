@@ -22,7 +22,7 @@ guest.book.delete:
   requirements:
     _permission: 'administer site configuration'
 
-guest.book.admin:
+admin.guestbook:
   path: '/admin/structure/guestbook'
   defaults:
     _title: 'Admin Guestbook'
@@ -30,18 +30,18 @@ guest.book.admin:
   requirements:
     _permission: 'administer site configuration'
 
-guest.book.admin.edit:
-  path: '/guest_book/guestbook-edit/{cid}'
+admin.guestbook.edit:
+  path: '/admin/guest_book/guestbook-edit/{cid}'
   defaults:
     _title: 'Edit'
-    _form: '\Drupal\guest_book\Form\GuestBookAdminEdit'
+    _form: '\Drupal\guest_book\Form\AdminGuestBookEdit'
   requirements:
     _permission: 'administer site configuration'
 
-guest.book.admin.delete:
-  path: '/guest_book/guestbook-delete/{cid}'
+admin.guestbook.delete:
+  path: '/admin/guest_book/guestbook-delete/{cid}'
   defaults:
     _title: 'Edit'
-    _form: '\Drupal\guest_book\Form\GuestBookAdminDelete'
+    _form: '\Drupal\guest_book\Form\AdminGuestBookDelete'
   requirements:
     _permission: 'administer site configuration'

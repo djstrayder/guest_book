@@ -6,7 +6,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\file\Entity\File;
 
 /**
- * Returns responses for guestbook.
+ * Class DisplayTableController.
+ *
+ * @package Drupal\guest_book\Controller;
  */
 class GuestBookControllerAdmin extends ControllerBase {
 
@@ -69,6 +71,7 @@ class GuestBookControllerAdmin extends ControllerBase {
           '#width' => 200,
         ];
       }
+      // Get data.
       $data[] = [
         'name' => $row->name,
         'email' => $row->email,
@@ -87,8 +90,9 @@ class GuestBookControllerAdmin extends ControllerBase {
         'uri' => isset($uri) ? $uri : '',
       ];
     }
+    // Render page admin guest book page.
     return [
-      'guests' => [
+      'posts' => [
         '#theme' => 'guestbook_admin',
         '#rows' => $data,
       ],

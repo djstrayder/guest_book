@@ -11,14 +11,14 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\file\Entity\File;
 
 /**
- * Implements an Edit Form.
+ * Implements an Edit Form Admin.
  */
-Class GuestBookAdminEdit extends FormBase {
+class AdminGuestBookEdit extends FormBase {
 
   /**
    * ID of the item to edit.
    *
-   * @var \Drupal\guest_book\Form\GuestBookAdminEdit
+   * @var \Drupal\guest_book\Form\AdminGuestBookEdit
    */
 
   protected $id;
@@ -41,14 +41,14 @@ Class GuestBookAdminEdit extends FormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Do you want to edit %cid?', ['%cid' => $this->cid]);
+    return t('Edit this entry %cid?', ['%cid' => $this->cid]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('guest.book.admin');
+    return new Url('admin.guestbook');
   }
 
   /**
@@ -73,6 +73,7 @@ Class GuestBookAdminEdit extends FormBase {
     $id = \Drupal::routeMatch()->getParameter('id');
     $query = \Drupal::database();
     $data = $query->select('guest_book', 'b')
+      ->condition('b.id', $cid, '=')
       ->fields('b', [
         'id',
         'name',
@@ -164,7 +165,7 @@ Class GuestBookAdminEdit extends FormBase {
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Send'),
+      '#value' => $this->t('Edit'),
       '#ajax' => [
         'callback' => '::submitAjax',
         'event' => 'click',
@@ -291,7 +292,7 @@ Class GuestBookAdminEdit extends FormBase {
     $message = \Drupal::service('renderer')->render($message);
     $response->addCommand(new HtmlCommand('#form-system-messages', $message));
     if (!$form_state->hasAnyerrors()) {
-      $url = Url::fromRoute('guest.book.admin');
+      $url = Url::fromRoute('admin.guestbook');
       $command = new RedirectCommand($url->toString());
       $response->addCommand($command);
     }
@@ -335,7 +336,7 @@ Class GuestBookAdminEdit extends FormBase {
       ->condition('id', $this->id)
       ->execute();
     $this->messenger()->addStatus($this->t('Successfully'));
-    $form_state->setRedirect('guest.book.admin');
+    $form_state->setRedirect('admin.guestbook');
   }
 
 }

@@ -48,8 +48,8 @@
     </div>
     {% if user.hasPermission('administer nodes') %}
       <div class="guestbook_buttons">
-        <a href="/guest_book/guestbook-edit/{{ row.id }}" data-dialog-type="modal">{{ row.edit }}</a>
-        <a href="/guest_book/guestbook-delete/{{ row.id }}" data-dialog-type="modal">{{ row.delete }}</a>
+        <a href="/guest_book/guestbook-edit/{{ row.id }}" class="use-ajax guestbook-edit" data-dialog-type="modal">{{ row.edit }}</a>
+        <a href="/guest_book/guestbook-delete/{{ row.id }}" class="use-ajax guestbook-delete" data-dialog-type="modal">{{ row.delete }}</a>
       </div>
     {% endif %}
   {% endfor %}

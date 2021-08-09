@@ -18,7 +18,7 @@ use Drupal\file\Entity\File;
 class GuestBookForm extends FormBase {
 
   /**
-   * For ID.
+   * For guest book ID.
    */
   public function getFormId() {
     return 'guest_book';
@@ -116,7 +116,7 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Validation.
+   * Validation for guest book.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $emailVL = $form_state->getValue('email');
@@ -136,7 +136,7 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Special for ajax validation your name.
+   * Validation for username.
    */
   public function nameValidateAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
@@ -167,7 +167,7 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Special for ajax validation your email.
+   * Validation for user_email.
    */
   public function emailValidateAjax(array $form, FormStateInterface $form_state) {
     $emailVl = $form_state->getValue('email');
@@ -190,7 +190,7 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Special for ajax validation your telephone.
+   * Validation for user_telephone.
    */
   public function telephoneValidateAjax(array $form, FormStateInterface $form_state) {
     $telephoneVL = $form_state->getValue('telephone');
@@ -211,7 +211,7 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Special for ajax validation your submit.
+   * Validation for your Submit.
    */
   public function submitAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
@@ -235,11 +235,12 @@ class GuestBookForm extends FormBase {
   }
 
   /**
-   * Form to send.
+   * Sending the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $avatar = $form_state->getValue('avatar');
     $image = $form_state->getValue('image');
+    // Save files as Permanent.
     $data = [
       'name' => $form_state->getValue('name'),
       'email' => $form_state->getValue('email'),
@@ -265,11 +266,13 @@ class GuestBookForm extends FormBase {
       $imagefile->setPermanent();
       $imagefile->save();
     }
+    // Insert data to database.
     $query = \Drupal::database()->insert('guest_book');
     $query
       ->fields($data)
       ->execute();
-    $this->messenger()->addStatus($this->t('Successfully'));
+    // Show message and redirect to this page.
+    $this->messenger()->addStatus($this->t('Successfully sent'));
     $form_state->setRedirect('guest.book');
   }
 

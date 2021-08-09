@@ -1,3 +1,7 @@
+.guest-book {
+  background: #e6ebf1;
+  padding: 10px;
+}
 .js-quickedit-page-title {
   display: flex;
   justify-content: center;
@@ -8,6 +12,7 @@
   text-align: center;
   text-transform: uppercase;
   padding: 20px 0;
+  color: #325d88;
 }
 .guestbook_header_content {
   display: flex;
@@ -17,13 +22,14 @@
   padding-bottom: 10px;
 }
 .guestbook_user {
+  background: #325d881f;
   margin-bottom: 15px;
 }
 .guestbook_name_image {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #325d88;
+  border: 1px solid #c4dbf7;
   padding: 10px;
   flex-direction: column;
 }
@@ -48,7 +54,7 @@
   font-size: 16px;
 }
 .guestbook_feedback {
-  border: 1px solid #325d88;
+  background: #c4dbf7;
   margin-bottom: 20px;
 }
 .guestbook_feedback_message div {
@@ -66,6 +72,8 @@
 }
 .guestbook_buttons {
   text-align: center;
+  margin-bottom: 15px;
+  margin-top: -15px;
 }
 .guest-book .js-form-required, #ajax-wrapper--3, #ajax-wrapper--4 {
   text-transform: uppercase;
@@ -78,33 +86,33 @@
 }
 .guestbook_header_content_admin {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 15px 15px 15px;
 }
 .guestbook_user_admin {
-  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 1fr 3.5fr;
+  border: 1px solid #325d88;
 }
 .guestbook_name_image_admin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #325d88;
+  border-bottom: 1px solid black;
   padding: 10px;
-  flex-direction: column;
+
 }
 .guestbook_name_admin {
-  font-size: 20px;
-  text-transform: uppercase;
-}
-.guestbook_contacts_admin {
-  gap: 10px;
   display: flex;
   flex-direction: column;
+  font-size: 20px;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+.guestbook_contacts_admin {
   text-transform: uppercase;
   font-size: 12px;
+  margin-top: 10px;
 }
+
 .guestbook_contacts_admin a {
   text-decoration: none;
   color: #325d88;
@@ -115,7 +123,6 @@
   font-size: 16px;
 }
 .guestbook_feedback_admin {
-  border: 1px solid #325d88;
   margin-bottom: 20px;
 }
 .guestbook_feedback_message_admin div {
@@ -123,17 +130,17 @@
 }
 .feedback_image_width_admin {
   display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
+  justify-content: flex-start;
+  padding: 0 0 10px 10px;
 }
 .guestbook_timestamp_admin {
-  display: flex;
-  justify-content: flex-end;
   font-size: 10px;
 }
 .guestbook_buttons_admin {
   text-align: center;
+  margin-bottom: 30px;
 }
 .guest-book_admin .js-form-required, #ajax-wrapper--3, #ajax-wrapper--4 {
   text-transform: uppercase;
 }
+
