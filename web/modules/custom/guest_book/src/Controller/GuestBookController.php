@@ -40,6 +40,7 @@ class GuestBookController extends ControllerBase {
     $query = \Drupal::database();
     $result = $query->select('guest_book', 'b')
       ->fields('b', [
+        'id',
         'name',
         'email',
         'telephone',
@@ -47,7 +48,6 @@ class GuestBookController extends ControllerBase {
         'avatar',
         'image',
         'timestamp',
-        'id',
       ])
       ->orderBy('timestamp', 'DESC')
       ->execute()->fetchAll();
